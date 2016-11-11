@@ -1,3 +1,4 @@
+import os
 import logging
 from flask import Flask, request as req
 from app.controllers import pages
@@ -10,16 +11,31 @@ from .config import Config
 from .api import ApiAuth
 
 
-
 app = Flask(__name__)
 
 app.register_blueprint(pages.blueprint)
 app.logger.setLevel(logging.NOTSET)
+# For some reason, config is not pulling properly.
+SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
+# Need to remove this in production. For testing only.
+# print(str(app.config))
 
 db = SQLAlchemy(app)
 from .models import AppConfig
+
+# try:
+#     app.config.from_object(os.environ['APP_SETTINGS'])
+# except KeyError:
+#     # If environment variable 'APP_SETTINGS' isn't defined by administrator, exception defaults to development settings.
+#     app.config.from_object(config.DevelopmentConfig)
+# except:
+#     # Backup exception.
+#     app.config.from_object(config.DevelopmentConfig)
+
+
 
 ######################
 ###      API       ###

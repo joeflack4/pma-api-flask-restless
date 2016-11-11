@@ -15,8 +15,8 @@ errors = []
 # - Creates DB schema if it does not already exist.
 db.create_all()
 
-
 def add_rows_to_config_table(table_name, table_class, table_rows):
+
     commit_errors = False
     for key, value, permission_level, active in table_rows:
         try:
@@ -30,11 +30,10 @@ def add_rows_to_config_table(table_name, table_class, table_rows):
 
 # App config initialization.
 # IMPORTANT! - Post-deployment, you will want to make sure that you change the secret key value in your database.
-app_config_rows = [["App Name", "Just-a-Dash", 1, True],
+app_config_rows = [["App Name", "PMA API", 1, True],
     ["App Icon", "glyphicon glyphicon-equalizer", 1, True],
-    ["App Title", "Just-a-Dash Enterprise Management System", 1, True],
-    ["App Short-Title", "Just-a-Dash", 1, True],
-    ["Toggle Placeholders", "false", 1, True],
+    ["App Title", "PMA API", 1, True],
+    ["App Short-Title", "PMA API", 1, True],
     ["Secret Key", sk_generator(size=24), 1, True]]
 add_rows_to_config_table('App Config', AppConfig, app_config_rows)
 
