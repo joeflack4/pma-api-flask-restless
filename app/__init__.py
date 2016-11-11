@@ -24,16 +24,17 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 # print(str(app.config))
 
 db = SQLAlchemy(app)
-from .models import AppConfig
+# NEED TO PUT THIS BACK
+from .models import AppConfig, EthiopiaRound2SDP
 
-# try:
-#     app.config.from_object(os.environ['APP_SETTINGS'])
-# except KeyError:
-#     # If environment variable 'APP_SETTINGS' isn't defined by administrator, exception defaults to development settings.
-#     app.config.from_object(config.DevelopmentConfig)
-# except:
-#     # Backup exception.
-#     app.config.from_object(config.DevelopmentConfig)
+try:
+    app.config.from_object(os.environ['APP_SETTINGS'])
+except KeyError:
+    # If environment variable 'APP_SETTINGS' isn't defined by administrator, exception defaults to development settings.
+    app.config.from_object(config.DevelopmentConfig)
+except:
+    # Backup exception.
+    app.config.from_object(config.DevelopmentConfig)
 
 
 
@@ -46,15 +47,13 @@ api_manager = APIManager(app, flask_sqlalchemy_db=db)
 # Blank
 
 # - API's requiring super admin status.
+# NEED TO PUT THIS BACK
 app_config_api_blueprint = api_manager.create_api(AppConfig, collection_name='app-config', methods=['GET', 'POST',
                                                                                                     'DELETE', 'PUT'],
                                                   preprocessors=dict(GET_SINGLE=[ApiAuth.super_admin],
                                                                      GET_MANY=[ApiAuth.super_admin]))
 
-app_config_api_blueprint = api_manager.create_api(AppConfig, collection_name='app-config', methods=['GET', 'POST',
-                                                                                                    'DELETE', 'PUT'],
-                                                  preprocessors=dict(GET_SINGLE=[ApiAuth.super_admin],
-                                                                     GET_MANY=[ApiAuth.super_admin]))
+ethiopia_round2_sdp_blueprint = api_manager.create_api(EthiopiaRound2SDP, collection_name='ethiopia/round2/sdp', methods=['GET'])
 
 
 def create_app(config_filename):

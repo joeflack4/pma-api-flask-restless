@@ -1,5 +1,6 @@
-# from app.models import db, AppConfig
+from app.models import db, AppConfig
 from app.models import db, EthiopiaRound2SDP
+from app.test_data import test_data
 from app.config import sk_generator
 # from psycopg2 import IntegrityError
 # from sqlalchemy.exc import IntegrityError
@@ -16,48 +17,62 @@ errors = []
 # - Creates DB schema if it does not already exist.
 db.create_all()
 
-# def add_rows_to_config_table(table_name, table_class, table_rows):
-#
-#     commit_errors = False
-#     for key, value, permission_level, active in table_rows:
-#         try:
-#             db.session.add(table_class(key, value, permission_level, active))
-#             db.session.commit()
-#         except:
-#             commit_errors = True
-#             db.session.rollback()
-#     if commit_errors == True:
-#         errors.append(integrity_error.format(table_name))
+def add_rows_to_config_table(table_name, table_class, table_rows):
+
+    commit_errors = False
+    for key, value, permission_level, active in table_rows:
+        try:
+            db.session.add(table_class(key, value, permission_level, active))
+            db.session.commit()
+        except:
+            commit_errors = True
+            db.session.rollback()
+    if commit_errors == True:
+        errors.append(integrity_error.format(table_name))
 #
 # # App config initialization.
 # # IMPORTANT! - Post-deployment, you will want to make sure that you change the secret key value in your database.
-# app_config_rows = [["App Name", "PMA API", 1, True],
-#     ["App Icon", "glyphicon glyphicon-equalizer", 1, True],
-#     ["App Title", "PMA API", 1, True],
-#     ["App Short-Title", "PMA API", 1, True],
-#     ["Secret Key", sk_generator(size=24), 1, True]]
-# add_rows_to_config_table('App Config', AppConfig, app_config_rows)
+app_config_rows = [["App Name", "PMA API", 1, True],
+    ["App Icon", "glyphicon glyphicon-equalizer", 1, True],
+    ["App Title", "PMA API", 1, True],
+    ["App Short-Title", "PMA API", 1, True],
+    ["Secret Key", sk_generator(size=24), 1, True]]
+add_rows_to_config_table('App Config', AppConfig, app_config_rows)
 
 
 # Test config initialization.
-# def add_rows_to_survey_round_table(table_name, table_class, table_rows):
-#
-#     commit_errors = False
-#     for key, value, permission_level, active in table_rows:
-#         try:
-#             db.session.add(table_class(key, value, permission_level, active))
-#             db.session.commit()
-#         except:
-#             commit_errors = True
-#             db.session.rollback()
-#     if commit_errors == True:
-#         errors.append(integrity_error.format(table_name))
-#
-# ethiopia_round2_sdp_rows = [
-#
-# ]
-#
-# add_rows_to_survey_round_table('Ethiopia Round2 SDP', EthiopiaRound2SDP, ethiopia_round2_sdp_rows)
+def add_rows_to_survey_round_table(table_name, table_class, data):
+
+    # db.session.add(table_class(
+    #     id=data['id'],
+    #     _merge=data['_merge']
+    # ))
+
+    db.session.add(table_class(**{'id': 14, '_merge': 'test'}))
+    # db.session.add(table_class(**data))
+    # db.session.add(table_class(14))
+    # db.session.add(table_class({'id': 13, '_merge': 'test'}))
+    # db.session.add(table_class(data))
+    db.session.commit()
+
+    # commit_errors = False
+    # for arg in table_rows:
+    #     try:
+    #         db.session.add(table_class(args))
+    #         db.session.commit()
+    #     except:
+    #         commit_errors = True
+    #         db.session.rollback()
+    # if commit_errors == True:
+    #     errors.append(integrity_error.format(table_name))
+
+ethiopia_round2_sdp_rows = [
+    [7, 'lkjsldkfjklflj']
+]
+
+
+
+add_rows_to_survey_round_table('Ethiopia Round2 SDP', EthiopiaRound2SDP, test_data)
 
 
 # - Summary
