@@ -76,4 +76,5 @@ ecdsa==0.10
 #itsdangerous==0.23
 paramiko==1.12.2
 pycrypto==2.6.1
-wsgiref==0.1.2
+#The following errored due to being python2 apparently.
+#wsgiref==0.1.2
