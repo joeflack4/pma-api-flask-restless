@@ -50,7 +50,7 @@ class AppConfig(BaseConfig):
 
 ##############
 # - Test Models
-class EthiopiaRound2SDP(BaseModel):
+class EthiopiaRound2SDP(db.Model):
     __tablename__ = 'Ethiopia_Round2_SDP'
 
     id = db.Column(db.Integer(), primary_key=True, nullable=False)
