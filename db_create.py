@@ -1,4 +1,4 @@
-from app.models import db, AppConfig
+from app.models import db, AppConfig, EthiopiaRound2SDP
 from app.config import sk_generator
 # from psycopg2 import IntegrityError
 # from sqlalchemy.exc import IntegrityError
@@ -36,6 +36,28 @@ app_config_rows = [["App Name", "PMA API", 1, True],
     ["App Short-Title", "PMA API", 1, True],
     ["Secret Key", sk_generator(size=24), 1, True]]
 add_rows_to_config_table('App Config', AppConfig, app_config_rows)
+
+
+# Test config initialization.
+# def add_rows_to_survey_round_table(table_name, table_class, table_rows):
+#
+#     commit_errors = False
+#     for key, value, permission_level, active in table_rows:
+#         try:
+#             db.session.add(table_class(key, value, permission_level, active))
+#             db.session.commit()
+#         except:
+#             commit_errors = True
+#             db.session.rollback()
+#     if commit_errors == True:
+#         errors.append(integrity_error.format(table_name))
+#
+# ethiopia_round2_sdp_rows = [
+#
+# ]
+#
+# add_rows_to_survey_round_table('Ethiopia Round2 SDP', EthiopiaRound2SDP, ethiopia_round2_sdp_rows)
+
 
 # - Summary
 print("")

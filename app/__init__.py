@@ -51,6 +51,11 @@ app_config_api_blueprint = api_manager.create_api(AppConfig, collection_name='ap
                                                   preprocessors=dict(GET_SINGLE=[ApiAuth.super_admin],
                                                                      GET_MANY=[ApiAuth.super_admin]))
 
+app_config_api_blueprint = api_manager.create_api(AppConfig, collection_name='app-config', methods=['GET', 'POST',
+                                                                                                    'DELETE', 'PUT'],
+                                                  preprocessors=dict(GET_SINGLE=[ApiAuth.super_admin],
+                                                                     GET_MANY=[ApiAuth.super_admin]))
+
 
 def create_app(config_filename):
     app.config.from_object(config_filename)
