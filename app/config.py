@@ -11,6 +11,7 @@ class Config(object):
     CSRF_ENABLED = True
     WTF_CSRF_ENABLED = True
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
     # try:
     #     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
     # except KeyError as e:

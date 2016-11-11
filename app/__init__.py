@@ -6,9 +6,8 @@ from app.controllers import pages
 # from flask.ext.sqlalchemy import SQLAlchemy
 from flask_sqlalchemy import SQLAlchemy
 from flask_restless import APIManager
-# from .config import Config
+from .config import Config
 from .api import ApiAuth
-from .models import AppConfig
 
 
 
@@ -16,8 +15,11 @@ app = Flask(__name__)
 
 app.register_blueprint(pages.blueprint)
 app.logger.setLevel(logging.NOTSET)
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+
 
 db = SQLAlchemy(app)
+from .models import AppConfig
 
 ######################
 ###      API       ###
