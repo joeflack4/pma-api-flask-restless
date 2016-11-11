@@ -34,8 +34,6 @@ app_config_api_blueprint = api_manager.create_api(AppConfig, collection_name='ap
                                                                      GET_MANY=[ApiAuth.super_admin]))
 
 
-
-
 def create_app(config_filename, app):
     app.config.from_object(config_filename)
 
