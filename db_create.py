@@ -18,7 +18,6 @@ errors = []
 db.create_all()
 
 def add_rows_to_config_table(table_name, table_class, table_rows):
-
     commit_errors = False
     for key, value, permission_level, active in table_rows:
         try:
@@ -40,38 +39,12 @@ app_config_rows = [["App Name", "PMA API", 1, True],
 add_rows_to_config_table('App Config', AppConfig, app_config_rows)
 
 
-# Test config initialization.
+# Proof of concept initialization.
+# - Note: The error handling of the above 'add_rows_to_config_table' is much desired, but looks like it should
+# possibly be added to the __init__ class of BaseModel.
 def add_rows_to_survey_round_table(table_name, table_class, data):
-
-    # db.session.add(table_class(
-    #     id=data['id'],
-    #     _merge=data['_merge']
-    # ))
-
-    db.session.add(table_class(**{'id': 14, '_merge': 'test'}))
-    # db.session.add(table_class(**data))
-    # db.session.add(table_class(14))
-    # db.session.add(table_class({'id': 13, '_merge': 'test'}))
-    # db.session.add(table_class(data))
+    db.session.add(table_class(**data))
     db.session.commit()
-
-    # commit_errors = False
-    # for arg in table_rows:
-    #     try:
-    #         db.session.add(table_class(args))
-    #         db.session.commit()
-    #     except:
-    #         commit_errors = True
-    #         db.session.rollback()
-    # if commit_errors == True:
-    #     errors.append(integrity_error.format(table_name))
-
-ethiopia_round2_sdp_rows = [
-    [7, 'lkjsldkfjklflj']
-]
-
-
-
 add_rows_to_survey_round_table('Ethiopia Round2 SDP', EthiopiaRound2SDP, test_data)
 
 
